@@ -5,6 +5,7 @@
 :root {
   --primary-color: #00f5d4;
   --primary-hover: #00d4b8;
+  --brand-cyan: #00F0FF;
 }
 
 @layer base {
@@ -19,7 +20,7 @@
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
   }
   
   .heading-1 {

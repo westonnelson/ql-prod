@@ -7,9 +7,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'QuoteLinker - Insurance Quote Comparison',
-  description: 'Compare and get quotes for Auto, Term Life, and Short-Term Disability insurance.',
+  description: 'Compare insurance quotes from top providers and find the best coverage for your needs.',
   icons: {
-    icon: '/Q_L.jpeg',
+    icon: '/favicon.ico',
   },
 }
 
@@ -44,23 +44,24 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} bg-white`}>
-        {/* Header */}
+      <body className={inter.className}>
         <header className="bg-black shadow-lg">
-          <div className="container-custom py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <img
-                  src="/Q_L.jpeg"
-                  alt="QuoteLinker Logo"
-                  width={48}
-                  height={48}
-                  className="rounded-lg"
-                />
-                <span className="ml-3 text-2xl font-bold text-white">QuoteLinker</span>
+          <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex">
+                <div className="flex-shrink-0 flex items-center">
+                  <a href="/" className="flex items-center">
+                    <img
+                      className="h-10 w-auto"
+                      src="/logo.png"
+                      alt="QuoteLinker"
+                    />
+                    <span className="ml-3 text-xl font-semibold text-white">QuoteLinker</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+          </nav>
         </header>
         <main>
           {children}
