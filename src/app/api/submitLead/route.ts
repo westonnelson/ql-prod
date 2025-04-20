@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const AGENT_EMAIL = 'agent@quotelinker.com'; // Replace with your agent's email
 
 export async function POST(request: Request) {
   try {
@@ -16,30 +17,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Add Salesforce integration here
-    // This is a placeholder for the Salesforce API call
-    const salesforceResponse = await fetch(process.env.SALESFORCE_API_URL!, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.SALESFORCE_API_KEY}`,
-      },
-      body: JSON.stringify({
-        fullName,
-        email,
-        phone,
-        zipCode,
-        quoteType,
-        source: 'QuoteLinker',
-        timestamp: new Date().toISOString(),
-      }),
-    });
-
-    if (!salesforceResponse.ok) {
-      throw new Error('Failed to submit to Salesforce');
-    }
-
-    // Send confirmation email
+    // Send confirmation email to user
     await resend.emails.send({
       from: 'quotes@quotelinker.com',
       to: email,
@@ -49,6 +27,26 @@ export async function POST(request: Request) {
         <p>Hi ${fullName},</p>
         <p>We've received your request for a ${quoteType} insurance quote. Our team will review your information and contact you shortly with personalized options.</p>
         <p>Best regards,<br>The QuoteLinker Team</p>
+      `,
+    });
+
+    // Send notification to agent
+    await resend.emails.send({
+      from: 'leads@quotelinker.com',
+      to: AGENT_EMAIL,
+      subject: `New ${quoteType} Insurance Lead`,
+      html: `
+        <h1>New Lead Alert: ${quoteType} Insurance</h1>
+        <h2>Lead Details:</h2>
+        <ul>
+          <li>Name: ${fullName}</li>
+          <li>Email: ${email}</li>
+          <li>Phone: ${phone}</li>
+          <li>ZIP Code: ${zipCode}</li>
+          <li>Insurance Type: ${quoteType}</li>
+          <li>Timestamp: ${new Date().toLocaleString()}</li>
+        </ul>
+        <p>Please follow up with this lead as soon as possible.</p>
       `,
     });
 
