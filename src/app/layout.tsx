@@ -9,7 +9,18 @@ export const metadata: Metadata = {
   title: 'QuoteLinker - Insurance Quote Comparison',
   description: 'Compare insurance quotes from top providers and find the best coverage for your needs.',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      {
+        url: '/favicon.ico',
+        sizes: 'any',
+      },
+      {
+        url: '/icon.png',
+        type: 'image/png',
+        sizes: '32x32',
+      }
+    ],
+    apple: '/apple-icon.png',
   },
 }
 
