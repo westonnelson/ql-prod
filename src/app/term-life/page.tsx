@@ -1,4 +1,4 @@
-import QuoteForm from '@/components/QuoteForm';
+import QuoteForm from '../../components/QuoteForm';
 import Image from 'next/image';
 import Link from 'next/link';
 
