@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const AGENT_EMAIL = 'agent@quotelinker.com'; // Replace with your agent's email
+const AGENT_EMAIL = 'newquote@quotelinker.com';
+const SUPPORT_EMAIL = 'support@quotelinker.com';
 
 export async function POST(request: Request) {
   try {
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
 
     // Send confirmation email to user
     await resend.emails.send({
-      from: 'quotes@quotelinker.com',
+      from: SUPPORT_EMAIL,
       to: email,
       subject: `Your ${quoteType} Insurance Quote Request`,
       html: `
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
 
     // Send notification to agent
     await resend.emails.send({
-      from: 'leads@quotelinker.com',
+      from: SUPPORT_EMAIL,
       to: AGENT_EMAIL,
       subject: `New ${quoteType} Insurance Lead`,
       html: `
